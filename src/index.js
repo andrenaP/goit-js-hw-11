@@ -16,6 +16,12 @@ const load_more=document.querySelector(".load-more");
 submit_button.addEventListener('click', OnSubmit)
 load_more.addEventListener('click', OnLoad)
 
+const lightbox = new SimpleLightbox('.gallery a', {
+  caption: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 disbtn(load_more,false)
 input_text.addEventListener("input",throttle((event) => {disbtn(submit_button,false)}),100);
 
