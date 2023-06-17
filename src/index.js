@@ -16,8 +16,8 @@ const load_more=document.querySelector(".load-more");
 submit_button.addEventListener('click', OnSubmit)
 load_more.addEventListener('click', OnLoad)
 
-load_more.disabled = true;
-input_text.addEventListener("change",throttle((event) => {submit_button.disabled = false;}),500);
+disbtn(load_more,false)
+input_text.addEventListener("input",throttle((event) => {disbtn(submit_button,false)}),100);
 
 function OnLoad(event){
   event.preventDefault();
@@ -29,8 +29,9 @@ function OnSubmit(event){
   clearAll();
   ApiService.ResetPage();
   do_it(input_text.value);
-  submit_button.disabled = true;
-  load_more.disabled = false;
+  disbtn(submit_button,true)
+  disbtn(load_more,false)
+
 }
 
 async function do_it(call_n)
@@ -51,7 +52,7 @@ function createHTML(data){
   gallery.insertAdjacentHTML('beforeend', readyHtml);
 }
 function To_Html(c){
-  
+
  return `<div class="photo-card">
   <img src="${c.largeImageURL}" alt="${c.tags}" loading="lazy" />
   <div class="info">
@@ -76,3 +77,11 @@ function clearAll() {
 };
 
 
+
+function disbtn(but,e) { 
+  if ( e == true ) {
+    but.setAttribute("disabled", "disabled");
+  } else {
+    but.removeAttribute("disabled");
+  }    
+}
