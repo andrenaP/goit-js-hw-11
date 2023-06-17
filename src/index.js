@@ -4,7 +4,7 @@ import Notiflix from 'notiflix';
 
 import ApiServiceClass from './js/get_img'
 
-
+var throttle = require('lodash.throttle');
 const ApiService= new ApiServiceClass();
 const gallery=document.querySelector(".gallery");
 
@@ -17,6 +17,7 @@ submit_button.addEventListener('click', OnSubmit)
 load_more.addEventListener('click', OnLoad)
 
 load_more.disabled = true;
+input_text.addEventListener("change",throttle((event) => {submit_button.disabled = false;}),500);
 
 function OnLoad(event){
   event.preventDefault();
@@ -25,6 +26,7 @@ function OnLoad(event){
 
 function OnSubmit(event){
   event.preventDefault();
+  clearAll();
   ApiService.ResetPage();
   do_it(input_text.value);
   submit_button.disabled = true;
@@ -69,6 +71,8 @@ function To_Html(c){
 </div>`
 }
 
-
+function clearAll() {
+  gallery.innerHTML = '';
+};
 
 
