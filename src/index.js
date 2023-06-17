@@ -6,21 +6,17 @@ import ApiServiceClass from './js/get_img'
 
 var throttle = require('lodash.throttle');
 const ApiService= new ApiServiceClass();
-const gallery=document.querySelector(".gallery");
 
 const form = document.forms[0];
 const submit_button = form.querySelector('button[type="submit"]');
 const input_text= form.querySelector('input[type="text"]');
 const load_more=document.querySelector(".load-more");
+const gallery=document.querySelector(".gallery");
 
 submit_button.addEventListener('click', OnSubmit)
 load_more.addEventListener('click', OnLoad)
 
-const lightbox = new SimpleLightbox('.gallery .photo-card', {
-  caption: true,
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+
 
 disbtn(load_more,false)
 input_text.addEventListener("input",throttle((event) => {disbtn(submit_button,false)}),100);
@@ -59,7 +55,7 @@ function createHTML(data){
 }
 function To_Html(c){
 
- return `<div class="photo-card">
+ return `<a class="photo-card">
   <img src="${c.largeImageURL}" alt="${c.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
@@ -75,7 +71,7 @@ function To_Html(c){
       <b>Downloads ${c.downloads}</b>
     </p>
   </div>
-</div>`
+</a>`
 }
 
 function clearAll() {
@@ -91,3 +87,8 @@ function disbtn(but,e) {
     but.removeAttribute("disabled");
   }    
 }
+const lightbox = new SimpleLightbox('.gallery a', {
+  caption: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
