@@ -6,6 +6,9 @@
   color: #2f2f37;
   max-width: 960px;
   padding: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .search-form input {
