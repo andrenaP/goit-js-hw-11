@@ -55,7 +55,7 @@ function createHTML(data){
 }
 function To_Html(c){
 
- return `<a class="photo-card">
+ return `<div class="photo-card">
   <img src="${c.largeImageURL}" alt="${c.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
@@ -71,7 +71,7 @@ function To_Html(c){
       <b>Downloads ${c.downloads}</b>
     </p>
   </div>
-</a>`
+</div>`
 }
 
 function clearAll() {
@@ -87,7 +87,7 @@ function disbtn(but,e) {
     but.removeAttribute("disabled");
   }    
 }
-const lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery', {
   caption: true,
   captionsData: 'alt',
   captionDelay: 250,
