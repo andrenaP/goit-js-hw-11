@@ -16,6 +16,11 @@ const gallery=document.querySelector(".gallery");
 submit_button.addEventListener('click', OnSubmit)
 load_more.addEventListener('click', OnLoad)
 
+const lightbox = new SimpleLightbox('.gallery .photo-card', {
+  caption: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 
 disbtn(load_more,false)
@@ -52,10 +57,11 @@ function createHTML(data){
   )
   .join("");
   gallery.insertAdjacentHTML('beforeend', readyHtml);
+  lightbox.refresh();
 }
 function To_Html(c){
 
- return `<div class="photo-card">
+ return `<a class="photo-card" href=${c.largeImageURL}>
   <img src="${c.largeImageURL}" alt="${c.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
@@ -71,7 +77,7 @@ function To_Html(c){
       <b>Downloads ${c.downloads}</b>
     </p>
   </div>
-</div>`
+</a>`
 }
 
 function clearAll() {
@@ -87,8 +93,4 @@ function disbtn(but,e) {
     but.removeAttribute("disabled");
   }    
 }
-const lightbox = new SimpleLightbox('.gallery', {
-  caption: true,
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+
