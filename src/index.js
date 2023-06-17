@@ -13,7 +13,23 @@ const submit_button = form.querySelector('button[type="submit"]');
 const input_text= form.querySelector('input[type="text"]');
 const load_more=document.querySelector(".load-more");
 
-submit_button.addEventListener('click', do_it(input_text.value))
+submit_button.addEventListener('click', OnSubmit)
+load_more.addEventListener('click', OnLoad)
+
+load_more.disabled = true;
+
+function OnLoad(event){
+  event.preventDefault();
+  do_it(input_text.value);
+}
+
+function OnSubmit(event){
+  event.preventDefault();
+  ApiService.ResetPage();
+  do_it(input_text.value);
+  submit_button.disabled = true;
+  load_more.disabled = false;
+}
 
 async function do_it(call_n)
 {
