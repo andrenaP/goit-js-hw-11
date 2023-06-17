@@ -16,7 +16,7 @@ const load_more=document.querySelector(".load-more");
 submit_button.addEventListener('click', OnSubmit)
 load_more.addEventListener('click', OnLoad)
 
-const lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery .photo-card', {
   caption: true,
   captionsData: 'alt',
   captionDelay: 250,
