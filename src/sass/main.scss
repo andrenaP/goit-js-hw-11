@@ -12,11 +12,33 @@
 
 
   .gallery .photo-card {
-width: 600px;
+width: 550px;
 height: 500px;
+border-radius: 10px;
+transition: all .3s;
+  }
+
+  .gallery-item {
+    flex-direction: column;
+    justify-content: space-evenly;
+    display: flex;
+  }
+
+  .gallery__link:hover, .gallery__link:focus {
+    transform: scale(1.05);
   }
 
   .gallery img {
     width: 500px;
     height: 300px;
       }
+
+
+
+      .gallery a {
+        text-decoration: none;
+       }
+       
+      .gallery p {
+        color: black;
+       }
