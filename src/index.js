@@ -2,13 +2,57 @@ import axios from 'axios';
 import SimpleLightbox from "simplelightbox";
 import Notiflix from 'notiflix';
 
+import ApiServiceClass from './js/get_img'
 
-const URL ="https://pixabay.com/api/";
-const KEY ="37324716-561554bcb566b8f1f5945e5c9";
-async function get_img(name_serch){
-    return await  axios.get(`${URL}?key=${KEY}&q=${name_serch}`)
-  }
 
- get_img('cat').then(users => console.log(users));
+const ApiService= new ApiServiceClass();
+const gallery=document.querySelector(".gallery");
+
+const form = document.forms[0];
+const submit_button = form.querySelector('button[type="submit"]');
+const input_text= form.querySelector('input[type="text"]');
+const load_more=document.querySelector(".load-more");
+
+submit_button.addEventListener('click', do_it(input_text.value))
+
+async function do_it(call_n)
+{
+  
+  ApiService.query=call_n;
+  const info=await ApiService.fetchArticles()
+  // console.log(info);
+  createHTML(info.data.hits);
+
+}
+function createHTML(data){
+  console.log(Object.assign(data));
+  const readyHtml = Object.assign(data).map((c) => 
+  To_Html(c)
+  )
+  .join("");
+  gallery.insertAdjacentHTML('beforeend', readyHtml);
+}
+function To_Html(c){
+  
+ return `<div class="photo-card">
+  <img src="${c.largeImageURL}" alt="${c.tags}" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes ${c.likes}</b>
+    </p>
+    <p class="info-item">
+      <b>Views ${c.views}</b>
+    </p>
+    <p class="info-item">
+      <b>Comments ${c.comments}</b>
+    </p>
+    <p class="info-item">
+      <b>Downloads ${c.downloads}</b>
+    </p>
+  </div>
+</div>`
+}
+
+
 
 
